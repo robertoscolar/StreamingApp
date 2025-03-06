@@ -1,18 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StreamingAPI.Model;
-using StreamingAPI.Repositories;
+using StreamingAPI.Repositories.Impl;
 using StreamingAPI.Services;
 
 namespace StreamingAPI.Controllers
 {
     [ApiController]
     [Route("api/v1/auth")]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
-        [HttpPost]
-        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] User model) 
+
+        private readonly UserRepository _userRepository;
+
+        public AuthController(UserRepository userRepository)
         {
-            var user = UserRepository.Get(model.Email, model.Password);
+            _userRepository = userRepository;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<dynamic>> AuthenticateAsync(string email, string password) 
+        {
+            var user = _userRepository.GetByEmailAndPassword(email, password);
 
             if (user == null)
             {
