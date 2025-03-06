@@ -11,6 +11,6 @@ namespace StreamingAPI.Model
 
         public string? Type { get; set; }
 
-        public Creator? Creator { get; set; }
+        public User? Creator { get; set; }
     }
 }

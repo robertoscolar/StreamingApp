@@ -15,7 +15,7 @@ namespace StreamingAPI.Repositories.Impl
         public User GetByEmailAndPassword(string email, string password)
         {
             return _context.Users.FirstOrDefault(u =>
-                u.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase) &&
+                u.Email.ToLower() == email.ToLower() &&
                 u.Password == password);
         }
     }

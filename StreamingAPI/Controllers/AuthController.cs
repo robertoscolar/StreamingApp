@@ -17,7 +17,7 @@ namespace StreamingAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<dynamic>> AuthenticateAsync(string email, string password) 
+        public async Task<ActionResult<dynamic>> AuthenticateAsync(string email,string password) 
         {
             var user = _userRepository.GetByEmailAndPassword(email, password);
 

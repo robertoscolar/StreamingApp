@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StreamingAPI;
+using StreamingAPI.Data;
 using StreamingAPI.Model;
 using StreamingAPI.Repositories;
 using StreamingAPI.Repositories.Impl;
@@ -41,10 +43,13 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
         }
     });
-
 });
 
-builder.Services.AddTransient<IRepository<Playlist>, PlaylistRepository>();
+builder.Services.AddEntityFrameworkSqlServer()
+    .AddDbContext<AppDbContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
+
+builder.Services.AddTransient<UserRepository>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
 

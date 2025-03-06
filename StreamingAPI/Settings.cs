@@ -1,9 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace StreamingAPI
+﻿namespace StreamingAPI
 {
     public class Settings
     {
-        public static string Secret = "adsdsaasaadsadsasdadssdasdadsads";
+        public static string Secret = "EmCasosReaisUtilizarVariavelDeAmbienteOuKeyVault";
     }
 }
