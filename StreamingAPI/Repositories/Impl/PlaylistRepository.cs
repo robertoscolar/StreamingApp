@@ -19,7 +19,7 @@ namespace StreamingAPI.Repositories.Impl
        
         public Playlist GetByID(int id)
         {
-            return _context.Playlists.FirstOrDefault(p => p.ID == id);
+            return _context.Playlists.FirstOrDefault(p => p.Id == id);
         }
 
         public void Add(Playlist entity)

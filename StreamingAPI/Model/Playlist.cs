@@ -1,20 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StreamingAPI.Model
 {
+    [Table("playlist")]
     public class Playlist
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public string? Name { get; set; }
+        [Column("nome")]
+        public string? Nome { get; set; }
 
-        public User? User { get; set; }
+        [ForeignKey("Usuario")]
+        [Column("usuario_id")]
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
 
-        public DateTime? CreatedAt { get; set; }
+        [Column("data_inclusao")]
+        public DateTime? dataInclusao { get; set; }
 
-        public DateTime? UpdatedAt { get; set; }
+        [Column("data_atualizacao")]
+        public DateTime? dataAtualizacao { get; set; }
 
-        public List<Content>? Contents;
+        public List<Conteudo>? Conteudos;
     }
 }

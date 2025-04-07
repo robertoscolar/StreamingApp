@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StreamingAPI.Repositories.Impl;
+using StreamingAPI.DTO;
 using StreamingAPI.Services;
 
 namespace StreamingAPI.Controllers
@@ -9,29 +9,34 @@ namespace StreamingAPI.Controllers
     public class AuthController : ControllerBase
     {
 
-        private readonly UserRepository _userRepository;
+        private readonly UsuarioService _usuarioService;
 
-        public AuthController(UserRepository userRepository)
+        public AuthController(UsuarioService usuarioService)
         {
-            _userRepository = userRepository;
+            _usuarioService = usuarioService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<dynamic>> AuthenticateAsync(string email,string password) 
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] AuthDTO authDTO)
         {
-            var user = _userRepository.GetByEmailAndPassword(email, password);
+            string token = _usuarioService.Autenticar(authDTO);
 
-            if (user == null)
-            {
-                return NotFound(new { message = "Usuário não encontrado." });
+            if (token == null)
+            {   
+                return Unauthorized(new
+                {
+                    code = 0,
+                    message = "Usuário ou senha incorretos.",
+                    token = ""
+                });
             }
-
-            var token = TokenService.GenerateToken(user);
-            user.Password = "";
 
             return new
             {
-                user = user,
+                code = 1,
+                message = "Acesso liberado",
                 token = token
             };
         }

@@ -8,7 +8,7 @@ namespace StreamingAPI.Services
 {
     public class TokenService
     {
-        public static string GenerateToken(User user)
+        public static string GenerateToken(Usuario user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -21,7 +21,7 @@ namespace StreamingAPI.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Name, user.Nome)
                 })
             }; 
 
