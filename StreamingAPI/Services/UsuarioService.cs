@@ -1,5 +1,4 @@
-﻿using StreamingAPI.Data;
-using StreamingAPI.DTO;
+﻿using StreamingAPI.DTO;
 using StreamingAPI.Model;
 using StreamingAPI.Repositories.Impl;
 
@@ -16,6 +15,7 @@ namespace StreamingAPI.Services
 
         public string Autenticar(AuthDTO authDTO)
         {
+            authDTO.Senha = HashService.GerarHashSHA256(authDTO.Senha);
             Usuario usuario = _usuarioRepository.GetByEmailAndPassword(authDTO.Email, authDTO.Senha);
 
             if (usuario == null)
@@ -31,12 +31,8 @@ namespace StreamingAPI.Services
 
         public void RegistrarUsuario(Usuario usuario)
         {
+            usuario.Senha = HashService.GerarHashSHA256(usuario.Senha);
             _usuarioRepository.Add(usuario);
-        }
-
-        public bool AcharPlaylistsPorUsuarioId(int id)
-        {
-            return true;
         }
 
         public Usuario EncontrarUsuarioPorId(int id)

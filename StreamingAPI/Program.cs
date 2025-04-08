@@ -52,6 +52,10 @@ builder.Services.AddEntityFrameworkSqlServer()
 
 builder.Services.AddTransient<UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddTransient<CriadorRepository>();
+builder.Services.AddScoped<CriadorService>();
+builder.Services.AddTransient<ConteudoRepository>();
+builder.Services.AddScoped<ConteudoService>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
 

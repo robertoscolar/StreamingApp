@@ -1,14 +1,40 @@
-﻿using StreamingAPI.Repositories.Impl;
+﻿using StreamingAPI.Model;
+using StreamingAPI.Repositories.Impl;
 
 namespace StreamingAPI.Services
 {
     public class PlaylistService
     {
-        private readonly PlaylistService _playlistService;
+        private readonly PlaylistRepository _playlistRepository;
 
-        public PlaylistService(PlaylistService playlistService)
+        public PlaylistService(PlaylistRepository playlistRepository)
         {
-            _playlistService = playlistService;
+            _playlistRepository = playlistRepository;
+        }
+
+        public List<Playlist> BuscarTodos()
+        {
+            return _playlistRepository.GetAll();
+        }
+
+        public Playlist BuscarPorId(int id)
+        {
+            return _playlistRepository.GetByID(id);
+        }
+
+        public void AdicionarPlaylist(Playlist playlist)
+        {
+
+        }
+
+        public void AtualizarPlaylist(Playlist playlist)
+        {
+
+        }
+
+        public void DeletarPlaylist(Playlist playlist)
+        {
+
         }
     }
 }

@@ -13,6 +13,17 @@ namespace StreamingAPI.Services
             _criadorRepository = criadorRepository;
         }
 
-        
+        public void RegistrarCriador(CriadorCadastroDTO criadorDTO)
+        {
+            Criador criador = new Criador();
+            criador.Nome = criadorDTO.Nome;
+
+            _criadorRepository.Add(criador);
+        }
+
+        public Criador EncontrarCriadorPorId(int id)
+        {
+            return _criadorRepository.GetByID(id);
+        }
     }
 }
