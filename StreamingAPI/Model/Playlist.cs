@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace StreamingAPI.Model
 {
@@ -14,15 +15,16 @@ namespace StreamingAPI.Model
 
         [ForeignKey("Usuario")]
         [Column("usuario_id")]
+        [JsonIgnore]
         public int UsuarioId { get; set; }
         public Usuario? Usuario { get; set; }
 
-        [Column("data_inclusao")]
-        public DateTime? dataInclusao { get; set; }
+        [Column("criado_em")]
+        public DateTime? DataInclusao { get; set; }
 
-        [Column("data_atualizacao")]
-        public DateTime? dataAtualizacao { get; set; }
+        [Column("atualizado_em")]
+        public DateTime? DataAtualizacao { get; set; }
 
-        public List<Conteudo>? Conteudos;
+        public List<ItemPlaylist> ItensPlaylist { get; set; } = new List<ItemPlaylist>();
     }
 }

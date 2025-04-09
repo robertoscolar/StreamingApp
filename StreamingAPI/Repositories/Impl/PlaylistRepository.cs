@@ -1,4 +1,5 @@
-﻿using StreamingAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using StreamingAPI.Data;
 using StreamingAPI.Model;
 
 namespace StreamingAPI.Repositories.Impl
@@ -14,12 +15,22 @@ namespace StreamingAPI.Repositories.Impl
 
         public List<Playlist> GetAll()
         {
-            return _context.Playlists.ToList();
+            return _context.Playlists
+                .Include(p => p.ItensPlaylist)
+                    .ThenInclude(ip => ip.Conteudo)
+                        .ThenInclude(c => c.Criador)
+                .Include(p => p.Usuario)
+                .ToList();
         }
        
         public Playlist GetByID(int id)
         {
-            return _context.Playlists.FirstOrDefault(p => p.Id == id);
+            return _context.Playlists
+                .Include(p => p.ItensPlaylist)
+                    .ThenInclude(ip => ip.Conteudo)
+                        .ThenInclude(c => c.Criador)
+                .Include(p => p.Usuario)
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public void Add(Playlist entity)
@@ -34,10 +45,16 @@ namespace StreamingAPI.Repositories.Impl
             _context.SaveChanges();
         }
 
-        public void Delete(Playlist entity)
+        public void Delete(int id)
         {
-            _context.Playlists.Remove(entity);
-            _context.SaveChanges();
+            var entity = GetByID(id);
+
+            if (entity != null)
+            {
+                _context.Set<ItemPlaylist>().RemoveRange(entity.ItensPlaylist);
+                _context.Playlists.Remove(entity);
+                _context.SaveChanges();
+            }
         }
     }
 }

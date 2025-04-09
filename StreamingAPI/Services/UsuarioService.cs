@@ -39,5 +39,10 @@ namespace StreamingAPI.Services
         {
             return _usuarioRepository.GetByID(id);
         }
+
+        public List<Usuario> EncontrarTodos()
+        {
+            return _usuarioRepository.GetAll();
+        }
     }
 }

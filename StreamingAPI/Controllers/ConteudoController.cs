@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StreamingAPI.DTO;
 using StreamingAPI.Model;
@@ -15,6 +16,15 @@ namespace StreamingAPI.Controllers
         public ConteudoController(ConteudoService conteudoService)
         {
             _conteudoService = conteudoService;
+        }
+
+        [HttpGet("buscar")]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<ActionResult<dynamic>> GetAll()
+        {
+            List<Conteudo> conteudos = _conteudoService.EncontrarTodos();
+            return Ok(conteudos);
         }
 
         [HttpGet("buscar/{id}")]

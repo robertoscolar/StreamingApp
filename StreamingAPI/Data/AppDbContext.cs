@@ -15,5 +15,13 @@ namespace StreamingAPI.Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ItemPlaylist>()
+                .HasKey(ip => new { ip.PlaylistId, ip.ConteudoId });
+        }
     }  
 }

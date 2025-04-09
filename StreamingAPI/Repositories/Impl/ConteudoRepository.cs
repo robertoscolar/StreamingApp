@@ -1,4 +1,5 @@
-﻿using StreamingAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using StreamingAPI.Data;
 using StreamingAPI.Model;
 
 namespace StreamingAPI.Repositories.Impl
@@ -14,12 +15,16 @@ namespace StreamingAPI.Repositories.Impl
 
         public List<Conteudo> GetAll()
         {
-            return _context.Conteudos.ToList();
+            return _context.Conteudos
+                .Include(p => p.Criador)
+                .ToList();
         }
 
         public Conteudo GetByID(int id)
         {
-            return _context.Conteudos.FirstOrDefault(p => p.Id == id);
+            return _context.Conteudos
+                .Include(p => p.Criador)
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public void Add(Conteudo entity)
@@ -34,10 +39,15 @@ namespace StreamingAPI.Repositories.Impl
             _context.SaveChanges();
         }
 
-        public void Delete(Conteudo entity)
+        public void Delete(int id)
         {
-            _context.Conteudos.Remove(entity);
-            _context.SaveChanges();
+            var entity = GetByID(id);
+
+            if (entity != null)
+            {
+                _context.Conteudos.Remove(entity);
+                _context.SaveChanges();
+            }
         }
     }
 }

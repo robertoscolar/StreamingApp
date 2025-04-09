@@ -25,5 +25,10 @@ namespace StreamingAPI.Services
         {
             return _criadorRepository.GetByID(id);
         }
+
+        public List<Criador> EncontrarTodos()
+        {
+            return _criadorRepository.GetAll();
+        }
     }
 }

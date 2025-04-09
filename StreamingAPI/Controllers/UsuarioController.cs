@@ -17,6 +17,15 @@ namespace StreamingAPI.Controllers
             _usuarioService = usuarioService;
         }
 
+        [HttpGet("buscar")]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<ActionResult<dynamic>> GetAll()
+        {
+            List<Usuario> usuarios = _usuarioService.EncontrarTodos();
+            return Ok(usuarios);
+        }
+
         [HttpGet("buscar/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

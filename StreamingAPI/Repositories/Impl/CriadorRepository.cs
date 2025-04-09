@@ -34,10 +34,15 @@ namespace StreamingAPI.Repositories.Impl
             _context.SaveChanges();
         }
 
-        public void Delete(Criador entity)
+        public void Delete(int id)
         {
-            _context.Criadores.Remove(entity);
-            _context.SaveChanges();
+            var entity = GetByID(id);
+
+            if (entity != null)
+            {
+                _context.Criadores.Remove(entity);
+                _context.SaveChanges();
+            }
         }
     }
 }

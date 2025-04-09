@@ -48,7 +48,10 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddEntityFrameworkSqlServer()
     .AddDbContext<AppDbContext>(
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
+        options => options
+        .UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"))
+        .LogTo(Console.WriteLine, LogLevel.Information)
+    );
 
 builder.Services.AddTransient<UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
@@ -56,6 +59,8 @@ builder.Services.AddTransient<CriadorRepository>();
 builder.Services.AddScoped<CriadorService>();
 builder.Services.AddTransient<ConteudoRepository>();
 builder.Services.AddScoped<ConteudoService>();
+builder.Services.AddTransient<PlaylistRepository>();
+builder.Services.AddScoped<PlaylistService>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
 

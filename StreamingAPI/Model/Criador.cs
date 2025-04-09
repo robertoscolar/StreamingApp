@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace StreamingAPI.Model
 {
@@ -12,6 +13,7 @@ namespace StreamingAPI.Model
         [Column("nome")]
         public string? Nome { get; set; }
 
+        [JsonIgnore]
         public List<Conteudo> Conteudos { get; set; }
     }
 }

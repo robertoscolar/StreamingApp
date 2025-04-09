@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace StreamingAPI.Model
 {
@@ -17,6 +18,7 @@ namespace StreamingAPI.Model
 
         [ForeignKey("Criador")]
         [Column("criador_id")]
+        [JsonIgnore]
         public int CriadorId { get; set; }
         public Criador? Criador { get; set; }
     }

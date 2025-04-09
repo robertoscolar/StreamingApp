@@ -33,10 +33,16 @@ namespace StreamingAPI.Repositories.Impl
             _context.Usuarios.Update(entity);
             _context.SaveChanges();
         }
-        public void Delete(Usuario entity)
+
+        public void Delete(int id)
         {
-            _context.Usuarios.Remove(entity);
-            _context.SaveChanges();
+            var entity = GetByID(id);
+
+            if (entity != null)
+            {
+                _context.Usuarios.Remove(entity);
+                _context.SaveChanges();
+            }
         }
 
         public Usuario GetByEmailAndPassword(string email, string password)

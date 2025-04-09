@@ -18,6 +18,15 @@ namespace StreamingAPI.Controllers
             _criadorService = criadorService;
         }
 
+        [HttpGet("buscar")]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<ActionResult<dynamic>> GetAll()
+        {
+            List<Criador> criadores = _criadorService.EncontrarTodos();
+            return Ok(criadores);
+        }
+
         [HttpGet("buscar/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

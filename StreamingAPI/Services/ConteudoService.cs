@@ -34,5 +34,10 @@ namespace StreamingAPI.Services
         {
             return _conteudoRepository.GetByID(id);
         }
+
+        public List<Conteudo> EncontrarTodos()
+        {
+            return _conteudoRepository.GetAll();
+        }
     }
 }

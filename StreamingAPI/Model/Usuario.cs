@@ -8,7 +8,6 @@ namespace StreamingAPI.Model
     public class Usuario
     {
         [Key]
-        [JsonIgnore]
         public int Id { get; set; }
 
         [Column("nome")]
