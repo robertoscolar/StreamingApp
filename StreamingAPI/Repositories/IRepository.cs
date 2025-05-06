@@ -1,6 +1,4 @@
-﻿using StreamingAPI.Repositories;
-
-namespace StreamingAPI.Repositories
+﻿namespace StreamingAPI.Repositories
 {
     public interface IRepository<T>
     {

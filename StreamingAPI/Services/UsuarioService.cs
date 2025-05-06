@@ -29,9 +29,15 @@ namespace StreamingAPI.Services
             return token;
         }
 
-        public void RegistrarUsuario(Usuario usuario)
+        public void RegistrarUsuario(UsuarioPostDTO usuarioDTO)
         {
-            usuario.Senha = HashService.GerarHashSHA256(usuario.Senha);
+            usuarioDTO.Senha = HashService.GerarHashSHA256(usuarioDTO.Senha);
+
+            Usuario usuario = new Usuario();
+            usuario.Nome = usuarioDTO.Nome;
+            usuario.Email = usuarioDTO.Email;
+            usuario.Senha = usuarioDTO.Senha;
+
             _usuarioRepository.Add(usuario);
         }
 

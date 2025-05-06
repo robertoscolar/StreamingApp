@@ -20,7 +20,7 @@ namespace StreamingAPI.Services
                 
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Name, user.Nome)
                 })
             }; 

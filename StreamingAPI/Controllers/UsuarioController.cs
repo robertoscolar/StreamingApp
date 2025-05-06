@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StreamingAPI.DTO;
 using StreamingAPI.Model;
 using StreamingAPI.Services;
 
@@ -7,7 +8,6 @@ namespace StreamingAPI.Controllers
 {
     [ApiController]
     [Route("api/v1/usuario")]
-    [Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly UsuarioService _usuarioService;
@@ -29,6 +29,7 @@ namespace StreamingAPI.Controllers
         [HttpGet("buscar/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public async Task<ActionResult<dynamic>> GetUsuario(int id)
         {
             Usuario usuario = _usuarioService.EncontrarUsuarioPorId(id);
@@ -56,9 +57,9 @@ namespace StreamingAPI.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<dynamic>> CadastrarUsuario([FromBody] Usuario usuario)
+        public async Task<ActionResult<dynamic>> CadastrarUsuario([FromBody] UsuarioPostDTO usuarioDTO)
         {
-            _usuarioService.RegistrarUsuario(usuario);
+            _usuarioService.RegistrarUsuario(usuarioDTO);
 
             return new
             {
